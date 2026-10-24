@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog & Resources — ZAKSY STUDIO | Interior Design Articles & Guides</title>
+  <meta name="description" content="Read expert interior design perspectives from Zaksy Studio Hyderabad: Bedroom sanctuaries, travertine bathrooms, lighting design, and architectural spatial flow." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Blog Grid & Articles */
+    .blog-section {
+      padding: 90px 0 130px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* Featured Hero Article */
+    .featured-article-card {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 60px;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 90px;
+      transition: border-color 0.3s ease;
+    }
+
+    .featured-article-card:hover {
+      border-color: rgba(183, 186, 145, 0.4);
+    }
+
+    .featured-visual {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+      background: #141512;
+    }
+
+    .featured-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .featured-article-card:hover .featured-visual img {
+      transform: scale(1.03);
+    }
+
+    .featured-body {
+      padding: 44px 50px 44px 0;
+    }
+
+    .article-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .article-tag .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--olive);
+    }
+
+    .featured-body h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 3.2vw, 46px);
+      line-height: 1.15;
+      margin-bottom: 18px;
+      color: var(--ivory);
+    }
+
+    .featured-body h2 em {
+      font-style: italic;
+      color: var(--olive);
+    }
+
+    .featured-body p {
+      font-size: 15px;
+      color: var(--ivory-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .article-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--ivory-dim);
+      margin-bottom: 28px;
+    }
+
+    /* Standard Articles Grid */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      margin-bottom: 90px;
+    }
+
+    .article-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(183, 186, 145, 0.4);
+    }
+
+    .article-card-visual {
+      height: 240px;
+      position: relative;
+      overflow: hidden;
+      background: #141512;
+    }
+
+    .article-card-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .article-card:hover .article-card-visual img {
+      transform: scale(1.05);
+    }
+
+    .article-card-body {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .article-card-body h3 {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--ivory);
+    }
+
+    .article-card-body p {
+      font-size: 14px;
+      color: var(--ivory-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .article-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 18px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ivory-dim);
+    }
+
+    .read-more-link {
+      color: var(--olive);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .read-more-link:hover {
+      color: #ffffff;
+    }
+
+    /* Design Resources & Toolkits */
+    .resources-section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at 10% 50%, rgba(183, 186, 145, 0.05) 0%, transparent 60%);
+    }
+
+    .resource-downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .resource-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.25s ease;
+    }
+
+    .resource-box:hover {
+      border-color: var(--olive);
+    }
+
+    .resource-type-pill {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .resource-box h4 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: var(--ivory);
+    }
+
+    .resource-box p {
+      font-size: 13.5px;
+      color: var(--ivory-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .resource-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--whatsapp);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .resource-action-btn:hover {
+      color: #ffffff;
+    }
+
+    /* Bottom CTA Section */
+    .blog-cta-section {
+      padding: 110px 0;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(183, 186, 145, 0.1) 0%, transparent 70%);
+    }
+
+    .blog-cta-section h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(38px, 4.2vw, 64px);
+      margin-bottom: 18px;
+    }
+
+    .blog-cta-section h2 em {
+      font-style: italic;
+      color: var(--olive);
+    }
+
+    .blog-cta-section p {
+      font-size: 16px;
+      color: var(--ivory-muted);
+      max-width: 580px;
+      margin: 0 auto 36px auto;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1024px) {
+      .articles-grid { grid-template-columns: repeat(2, 1fr); }
+      .resource-downloads-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 860px) {
+      .featured-article-card { grid-template-columns: 1fr; }
+      .featured-visual { height: 320px; }
+      .featured-body { padding: 30px; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .resource-downloads-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-wordmark" aria-label="Zaksy Studio home">
+      zaksy<span>STUDIO</span><sup>®</sup>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="services.html" class="nav-link">Services & Products</a>
+      <a href="blog.html" class="nav-link active">Blog & Resources</a>
+      <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20an%20interior%20design%20project." target="_blank" rel="noopener noreferrer" class="whatsapp-nav-btn">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+        Contact Us
+      </a>
+    </nav>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </header>
+
+  <!-- Page Banner -->
+  <section class="page-banner">
+    <div class="container">
+      <p class="banner-meta">04 / EDITORIAL & RESOURCES</p>
+      <h1 class="banner-title">
+        The Architecture<br>
+        of <em>Living.</em>
+      </h1>
+      <p class="banner-lead">
+        Design essays, material philosophies, and practical guidance from our Hyderabad studio on crafting calm, sensory, and enduring spaces.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Articles Content -->
+  <main class="container">
+    <section class="blog-section">
+      <div class="section-meta-label">
+        <span>FEATURED ESSAY</span>
+        <span>HYDERABAD STUDIO ARCHIVES</span>
+      </div>
+
+      <!-- Lead Featured Article -->
+      <article class="featured-article-card">
+        <div class="featured-visual">
+          <img src="img/detail.jpg" alt="Minimalist bedroom joinery and acoustic design by Zaksy Studio" loading="lazy" />
+        </div>
+        <div class="featured-body">
+          <div class="article-tag">
+            <span class="dot"></span>
+            BEDROOM ARCHITECTURE & ACOUSTICS
+          </div>
+          <h2>The Psychology of <em>Bedroom Sanctuaries</em>: Light, Proportion & Tactility</h2>
+          <p>
+            In contemporary residential design, the master bedroom is frequently over-illuminated and under-considered. A true sanctuary demands acoustic dampening, diffuse indirect morning lighting, concealed flush wardrobes, and tactile surfaces that decelerate your nervous system the moment you cross the threshold.
+          </p>
+          <div class="article-meta-row">
+            <span>By Zaksy Design Editorial</span>
+            <span>•</span>
+            <span>6 Min Read</span>
+            <span>•</span>
+            <span>Updated 2026</span>
+          </div>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20read%20your%20article%20on%20Bedroom%20Sanctuaries%20and%20would%20like%20to%20discuss%20my%20bedroom%20renovation." target="_blank" rel="noopener noreferrer" class="btn-primary">
+            Discuss Bedroom Project ↗
+          </a>
+        </div>
+      </article>
+
+      <!-- Standard Articles Grid -->
+      <div class="section-meta-label">
+        <span>RECENT PERSPECTIVES</span>
+        <span>INTERIOR DESIGN & SPATIAL STRATEGY</span>
+      </div>
+
+      <div class="articles-grid">
+        <!-- Article 1: Bathroom Architecture -->
+        <article class="article-card">
+          <div class="article-card-visual">
+            <img src="img/metal.jpg" alt="Travertine stone bathroom architecture" loading="lazy" />
+          </div>
+          <div class="article-card-body">
+            <div class="article-tag">
+              <span class="dot"></span>
+              BATHROOMS & WELLNESS
+            </div>
+            <h3>Travertine, Raw Stone & Water: Modern Bathroom Design</h3>
+            <p>
+              Why natural Roman travertine and concealed linear drains transform a standard bathroom into a private thermal spa experience with monolithic stone vanity surfaces.
+            </p>
+            <div class="article-card-footer">
+              <span>5 Min Read</span>
+              <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20interested%20in%20a%20luxury%20travertine%20bathroom%20design." target="_blank" rel="noopener noreferrer" class="read-more-link">Inquire on WhatsApp ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 2: Spatial Flow -->
+        <article class="article-card">
+          <div class="article-card-visual">
+            <img src="img/restaurant-wide.jpg" alt="Interior circulation and furniture placement" loading="lazy" />
+          </div>
+          <div class="article-card-body">
+            <div class="article-tag">
+              <span class="dot"></span>
+              SPATIAL PLANNING
+            </div>
+            <h3>Spatial Flow: Why Circulation Always Precedes Decor</h3>
+            <p>
+              Furniture looks only as good as the rhythm around it. How intentional walkway clearances and room transitions make a space feel double its physical square footage.
+            </p>
+            <div class="article-card-footer">
+              <span>4 Min Read</span>
+              <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20guidance%20on%20spatial%20planning%20for%20my%20residence." target="_blank" rel="noopener noreferrer" class="read-more-link">Inquire on WhatsApp ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 3: Lighting Layers -->
+        <article class="article-card">
+          <div class="article-card-visual">
+            <img src="img/counter.jpg" alt="Ambient 2700K lighting in hospitality interior" loading="lazy" />
+          </div>
+          <div class="article-card-body">
+            <div class="article-tag">
+              <span class="dot"></span>
+              LIGHTING DESIGN
+            </div>
+            <h3>Lighting in Layers: Retiring the Single Harsh Downlight</h3>
+            <p>
+              The difference between cold, clinical spaces and moody, inviting interiors comes down to three lighting planes: 2700K warm cove washes, low-level accents, and functional task zones.
+            </p>
+            <div class="article-card-footer">
+              <span>6 Min Read</span>
+              <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20want%20to%20upgrade%20the%20architectural%20lighting%20in%20my%20home." target="_blank" rel="noopener noreferrer" class="read-more-link">Inquire on WhatsApp ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 4: Raw Materials & Hyderabad Climate -->
+        <article class="article-card">
+          <div class="article-card-visual">
+            <img src="img/cafe.jpg" alt="Warm timber, lime plaster, and soft ambient natural light" loading="lazy" />
+          </div>
+          <div class="article-card-body">
+            <div class="article-tag">
+              <span class="dot"></span>
+              MATERIALS & CLIMATE
+            </div>
+            <h3>Tactile Warmth: Designing for the Deccan Climate</h3>
+            <p>
+              Breathable lime plasters, thermal-mass stone, and oiled teak joinery that patina gracefully under Hyderabad's intense summer sun without degrading.
+            </p>
+            <div class="article-card-footer">
+              <span>5 Min Read</span>
+              <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20tell%20me%20more%20about%20sustainable%20materials%20for%20Hyderabad%20homes." target="_blank" rel="noopener noreferrer" class="read-more-link">Inquire on WhatsApp ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 5: Commercial & Café Atmosphere -->
+        <article class="article-card">
+          <div class="article-card-visual">
+            <img src="img/bakery-wide.jpg" alt="Hospitality interior with custom metal and oak counter" loading="lazy" />
+          </div>
+          <div class="article-card-body">
+            <div class="article-tag">
+              <span class="dot"></span>
+              COMMERCIAL INTERIORS
+            </div>
+            <h3>Hospitality Architecture: Designing Customer Dwell Time</h3>
+            <p>
+              How coffee bars, patisseries, and restaurants craft subconscious comfort using acoustic absorption, bar ergonomics, and intimate conversational pockets.
+            </p>
+            <div class="article-card-footer">
+              <span>7 Min Read</span>
+              <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20opening%20a%20commercial%2Fcafe%20space%20and%20need%20design%20consultancy." target="_blank" rel="noopener noreferrer" class="read-more-link">Inquire on WhatsApp ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 6: Bespoke Joinery -->
+        <article class="article-card">
+          <div class="article-card-visual">
+            <img src="img/restaurant.jpg" alt="Custom architectural timber furniture" loading="lazy" />
+          </div>
+          <div class="article-card-body">
+            <div class="article-tag">
+              <span class="dot"></span>
+              BESPOKE PRODUCTS
+            </div>
+            <h3>Custom Millwork vs. Flatpack: The Longevity Calculus</h3>
+            <p>
+              Understanding why custom mortise-and-tenon solid wood joinery outlasts modular commercial cabinetry by decades and shapes a room’s enduring soul.
+            </p>
+            <div class="article-card-footer">
+              <span>4 Min Read</span>
+              <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20looking%20for%20custom%20joinery%20and%20furniture." target="_blank" rel="noopener noreferrer" class="read-more-link">Inquire on WhatsApp ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Studio Resources & Downloads Section -->
+    <section class="resources-section">
+      <div class="section-meta-label">
+        <span>STUDIO TOOLKITS & GUIDES</span>
+        <span>FREE ARCHITECTURAL RESOURCES</span>
+      </div>
+
+      <div style="max-width: 680px;">
+        <h2 class="section-title">Practical <em>Resources</em> for Your Next Build.</h2>
+        <p style="font-size: 16px; color: var(--ivory-muted); line-height: 1.7;">
+          We believe clients should be empowered with clear architectural vocabulary. Request our complimentary studio guides directly via WhatsApp.
+        </p>
+      </div>
+
+      <div class="resource-downloads-grid">
+        <div class="resource-box">
+          <div>
+            <span class="resource-type-pill">GUIDE 01 / PLANNING</span>
+            <h4>Residential Spatial Checklist</h4>
+            <p>
+              A 24-point pre-design blueprint covering electrical conduits, plumbing drops, ceiling drops, and minimum walkway clearances before breaking ground.
+            </p>
+          </div>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20please%20share%20the%20Residential%20Spatial%20Checklist%20guide." target="_blank" rel="noopener noreferrer" class="resource-action-btn">
+            Request on WhatsApp ↗
+          </a>
+        </div>
+
+        <div class="resource-box">
+          <div>
+            <span class="resource-type-pill">GUIDE 02 / MATERIALS</span>
+            <h4>Natural Stone Selection Matrix</h4>
+            <p>
+              Comparing Italian Travertine, Kishangarh Marble, Flamed Granite, and Quartzite across porosity, slip resistance, and maintenance rituals.
+            </p>
+          </div>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20please%20share%20the%20Natural%20Stone%20Selection%20Matrix." target="_blank" rel="noopener noreferrer" class="resource-action-btn">
+            Request on WhatsApp ↗
+          </a>
+        </div>
+
+        <div class="resource-box">
+          <div>
+            <span class="resource-type-pill">GUIDE 03 / LIGHTING</span>
+            <h4>Architectural Lighting Kelvin Guide</h4>
+            <p>
+              Understanding Color Rendering Index (CRI > 95), 2400K vs. 2700K vs. 3000K, and how to eliminate glare in bedroom and bathroom ceiling layouts.
+            </p>
+          </div>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20please%20share%20the%20Architectural%20Lighting%20Kelvin%20Guide." target="_blank" rel="noopener noreferrer" class="resource-action-btn">
+            Request on WhatsApp ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Call To Action -->
+    <section class="blog-cta-section">
+      <p class="banner-meta" style="justify-content: center; margin-bottom: 16px;">START A CONVERSATION</p>
+      <h2>Ready to shape your <em>sanctuary?</em></h2>
+      <p>
+        Whether you have architectural blueprints ready or just an initial feeling about how your space should live, our Hyderabad studio is ready to consult.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20book%20an%20interior%20design%20consultation." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+          Chat on WhatsApp (+91 91007 86726)
+        </a>
+        <a href="contact.html" class="btn-secondary">
+          View Studio Details & Form ↗
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Unified Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main-grid">
+        <div class="footer-col">
+          <a href="index.html" class="brand-wordmark" style="margin-bottom: 18px;">
+            zaksy<span>STUDIO</span><sup>®</sup>
+          </a>
+          <p style="font-size: 14px; color: var(--ivory-muted); max-width: 320px; line-height: 1.6; margin-bottom: 22px;">
+            Independent interior architecture and spatial design studio based in Hyderabad, India.
+          </p>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" class="whatsapp-nav-btn">
+            Chat on WhatsApp ↗
+          </a>
+        </div>
+
+        <div class="footer-col">
+          <h4>EXPLORE</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About the Studio</a></li>
+            <li><a href="services.html">Services & Products</a></li>
+            <li><a href="blog.html">Blog & Resources</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>SPACES</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#residential">Master Bedroom Suites</a></li>
+            <li><a href="services.html#residential">Travertine Bathrooms</a></li>
+            <li><a href="services.html#commercial">Café & Hospitality</a></li>
+            <li><a href="services.html#products">Bespoke Joinery</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>HYDERABAD STUDIO</h4>
+          <div class="footer-contact-item">
+            <strong>Phone / WhatsApp:</strong>
+            <a href="tel:+919100786726">+91 91007 86726</a> / 091007 86726
+          </div>
+          <div class="footer-contact-item">
+            <strong>Hours:</strong>
+            Open Daily • Closes 10:00 PM IST
+          </div>
+          <div class="footer-contact-item">
+            <strong>Email:</strong>
+            <a href="mailto:hello@zaksystudio.com">hello@zaksystudio.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <strong>Location:</strong>
+            Road No. 12, Banjara Hills, Hyderabad, India
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-sub-bar">
+        <span>© 2026 ZAKSY STUDIO ® — ALL RIGHTS RESERVED</span>
+        <div class="footer-legal-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="privacy.html#terms">Terms of Service</a>
+          <a href="privacy.html#cookies">Cookie Preferences</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mainNav = document.getElementById('mainNav');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mainNav.classList.toggle('open');
+      });
+    }
+
+    if (mainNav) {
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mainNav.classList.remove('open');
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!mainNav.contains(e.target) && mobileToggle && !mobileToggle.contains(e.target)) {
+          mainNav.classList.remove('open');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

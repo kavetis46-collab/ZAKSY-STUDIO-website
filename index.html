@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZAKSY STUDIO — Interior Architecture & Spatial Design | Hyderabad</title>
+  <meta name="description" content="Zaksy Studio is an independent interior architecture and spatial design studio in Hyderabad, India. Specialising in bespoke master bedrooms, travertine bathrooms, and turnkey environments." />
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..400&family=IBM+Plex+Mono:wght@400;500&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ====================================================================
+       CINEMATIC HERO VIEWPORT & CANVAS STYLING
+       The viewport stays 100% clean and unobstructed during the 300-frame scroll
+       ==================================================================== */
+    .hero-scroll-container {
+      position: relative;
+      width: 100%;
+      height: 480vh;
+      background: var(--bg-dark);
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 768px) {
+      .hero-scroll-container {
+        height: 390vh; /* Perfectly tuned swipe travel for mobile touch screens */
+        touch-action: pan-y;
+      }
+    }
+
+    .hero-sticky-frame {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+      background: var(--bg-dark);
+      contain: paint;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    #frameCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      touch-action: pan-y;
+      will-change: contents;
+    }
+
+    /* Bottom Docked Content (Headings & Dynamic CTA Buttons) */
+    .bottom-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 20;
+      pointer-events: none;
+      padding: 30px 48px 28px 48px;
+      background: linear-gradient(to top, rgba(9, 10, 8, 0.94) 0%, rgba(9, 10, 8, 0.6) 65%, transparent 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+    }
+
+    .bottom-dock.dock-hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+
+    /* Ambient Atelier Telemetry */
+    .dock-meta-col {
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      background: rgba(18, 19, 15, 0.72);
+      border: 1px solid var(--border-lux);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 12px 20px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .dock-atelier-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-champagne);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 0 8px #25D366;
+      animation: livePulse 2s infinite ease-in-out;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .dock-stage-display {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .dock-stage-label {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      color: var(--ivory);
+      text-transform: uppercase;
+    }
+
+    .dock-progress-track {
+      width: 190px;
+      height: 2px;
+      background: rgba(248, 246, 240, 0.12);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .dock-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-champagne) 0%, #ede6d8 100%);
+      transition: width 0.1s linear;
+    }
+
+    .dock-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      pointer-events: auto;
+      flex-shrink: 0;
+      margin-bottom: 4px;
+    }
+
+    .cta-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #fdfbf7 0%, #ebe3d3 100%);
+      color: #090a08;
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(197, 168, 128, 0.45);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(197, 168, 128, 0.18);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cta-btn-primary:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(197, 168, 128, 0.32);
+      border-color: var(--gold-champagne);
+    }
+
+    .cta-btn-primary:active {
+      transform: scale(0.96);
+      opacity: 0.92;
+    }
+
+    .cta-btn-primary svg {
+      transition: transform 0.25s ease;
+    }
+
+    .cta-btn-primary:hover svg {
+      transform: translate(2px, -2px);
+    }
+
+    .cta-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(18, 19, 15, 0.85);
+      border: 1px solid var(--border-lux);
+      color: var(--ivory);
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: all 0.25s ease;
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(25, 26, 21, 0.95);
+      border-color: var(--gold-champagne);
+      color: #ffffff;
+    }
+
+    .cta-btn-secondary:active {
+      transform: scale(0.96);
+      opacity: 0.92;
+    }
+
+    /* Scroll Prompt */
+    .scroll-down-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245, 242, 235, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 860px) {
+      .bottom-dock {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 18px;
+        padding-bottom: max(14px, env(safe-area-inset-bottom, 14px));
+        gap: 10px;
+      }
+      .dock-meta-col {
+        padding: 8px 14px;
+        gap: 4px;
+      }
+      .dock-stage-label {
+        font-size: 12px;
+      }
+      .dock-progress-track {
+        width: 100%;
+      }
+      .dock-actions {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+      }
+      .cta-btn-primary {
+        flex: 1.15;
+        padding: 12px 14px;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        justify-content: center;
+        text-align: center;
+      }
+      .cta-btn-secondary {
+        flex: 1;
+        padding: 12px 12px;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        justify-content: center;
+        text-align: center;
+      }
+      .scroll-down-hint { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .bottom-dock {
+        padding: 10px 12px;
+        padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
+      }
+      .dock-atelier-tag span:last-child {
+        font-size: 8.5px;
+      }
+      .cta-btn-primary, .cta-btn-secondary {
+        padding: 11px 8px;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+      }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .bottom-dock {
+        padding: 8px 18px;
+        padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+      }
+      .dock-actions {
+        margin-bottom: 0;
+        gap: 8px;
+      }
+      .cta-btn-primary, .cta-btn-secondary {
+        padding: 8px 14px;
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====================================================================
+       TOP SITE HEADER NAVIGATION
+       ==================================================================== -->
+  <header class="site-header">
+    <a href="index.html" class="brand-wordmark" aria-label="Zaksy Studio home">
+      zaksy<span>STUDIO</span><sup>®</sup>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="#portfolio" class="nav-link">Portfolio</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="services.html" class="nav-link">Services & Products</a>
+      <a href="#style-blog" class="nav-link">Style Blog</a>
+      <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20an%20interior%20architecture%20project." target="_blank" rel="noopener noreferrer" class="whatsapp-nav-btn">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+        Contact Us
+      </a>
+    </nav>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </header>
+
+  <!-- ====================================================================
+       SECTION 1: THE CINEMATIC HERO SECTION (300-FRAME SCROLL SEQUENCE)
+       Unobstructed pure animation view; text and CTAs strictly bottom docked
+       ==================================================================== -->
+  <section class="hero-scroll-container" id="heroTrack" aria-label="Cinematic Interior Animation">
+    <div class="hero-sticky-frame">
+      <canvas id="frameCanvas"></canvas>
+    </div>
+
+    <!-- Bottom Docked Architectural Command Console (Direct WhatsApp) -->
+    <aside class="bottom-dock" id="bottomDock" aria-label="Project Actions">
+      <!-- Left: Ambient Atelier Telemetry & Dynamic Sequence Progress -->
+      <div class="dock-meta-col">
+        <div class="dock-atelier-tag">
+          <span class="live-pulse-dot"></span>
+          <span>HYDERABAD ATELIER • OPEN DAILY TILL 10 PM</span>
+        </div>
+        <div class="dock-stage-display">
+          <span class="dock-stage-label" id="dockStageLabel">01 / SPATIAL INCEPTION</span>
+          <div class="dock-progress-track">
+            <div class="dock-progress-fill" id="dockProgressFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: All CTA Buttons Grouped Cleanly at Bottom Side (Direct WhatsApp) -->
+      <div class="dock-actions">
+        <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20an%20interior%20design%20project." target="_blank" rel="noopener noreferrer" class="cta-btn-primary" id="primaryCta">
+          Start a Project
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </a>
+        <a href="https://wa.me/919100786726?text=Hello%20Zaksy%20Studio%2C%20I%20would%20like%20to%20chat%20about%20your%20services." target="_blank" rel="noopener noreferrer" class="cta-btn-secondary" id="secondaryCta">
+          WhatsApp +91 91007 86726 ↗
+        </a>
+      </div>
+
+      <div class="scroll-down-hint">
+        <span>Scroll to Explore 300-Frame Space</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ====================================================================
+       SECTIONS 2 - 8: THE COMPLETE EDITORIAL HOMEPAGE ARCHITECTURE
+       Smoothly slides over the hero once 300-frame animation concludes
+       ==================================================================== -->
+  <div class="homepage-content">
+
+    <!-- ====================================================================
+         SECTION 2: THE VISUAL PORTFOLIO / GALLERY GRID
+         ==================================================================== -->
+    <section class="home-section" id="portfolio">
+      <div class="container">
+        <div class="section-meta-label">
+          <span>01 / CURATED SPATIAL ARCHITECTURE</span>
+          <span>HYDERABAD PORTFOLIO ARCHIVES</span>
+        </div>
+
+        <div style="max-width: 720px; margin-bottom: 40px;">
+          <h2 class="section-title">The Visual <em>Portfolio.</em></h2>
+          <p style="font-size: 16px; color: var(--ivory-muted); line-height: 1.7;">
+            A selective cross-section of bespoke master bedrooms, monolithic travertine bathrooms, and evocative commercial spaces crafted across Hyderabad.
+          </p>
+        </div>
+
+        <!-- Filter Pill Tabs -->
+        <div class="portfolio-filter-bar">
+          <button class="filter-btn active" data-filter="all">All Sanctuaries</button>
+          <button class="filter-btn" data-filter="bedrooms">Master Bedrooms</button>
+          <button class="filter-btn" data-filter="bathrooms">Spa Bathrooms</button>
+          <button class="filter-btn" data-filter="hospitality">Hospitality & Cafés</button>
+          <button class="filter-btn" data-filter="joinery">Bespoke Joinery</button>
+        </div>
+
+        <!-- Visual Grid -->
+        <div class="portfolio-grid" id="portfolioGrid">
+          <!-- Item 1: Master Bedroom -->
+          <article class="portfolio-item" data-category="bedrooms">
+            <div class="portfolio-img-wrap">
+              <img src="img/detail.jpg" alt="Stone and Oak Master Bedroom Sanctuary" loading="lazy" />
+              <div class="portfolio-overlay">
+                <span class="portfolio-cat">RESIDENTIAL SANCTUARY</span>
+                <h3>Stone & Oak Master Suite</h3>
+                <p class="portfolio-meta">Acoustic Fabric, Smoked Oak Joinery, Diffuse Lighting</p>
+                <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20interested%20in%20a%20master%20bedroom%20design%20like%20the%20Stone%20and%20Oak%20Suite." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+                  Inquire on WhatsApp ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 2: Spa Bathroom -->
+          <article class="portfolio-item" data-category="bathrooms">
+            <div class="portfolio-img-wrap">
+              <img src="img/metal.jpg" alt="Monolithic Travertine Spa Bathroom" loading="lazy" />
+              <div class="portfolio-overlay">
+                <span class="portfolio-cat">WELLNESS ARCHITECTURE</span>
+                <h3>Monolithic Travertine Spa</h3>
+                <p class="portfolio-meta">Roman Silver Travertine, Concealed Linear Drains</p>
+                <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20travertine%20spa%20bathroom%20project." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+                  Inquire on WhatsApp ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 3: Courtyard Dining -->
+          <article class="portfolio-item" data-category="bedrooms">
+            <div class="portfolio-img-wrap">
+              <img src="img/restaurant.jpg" alt="Courtyard Living and Dining" loading="lazy" />
+              <div class="portfolio-overlay">
+                <span class="portfolio-cat">LIVING & ENTERTAINING</span>
+                <h3>Deccan Courtyard Dining</h3>
+                <p class="portfolio-meta">Double-Height Volume, Solid Teak Table</p>
+                <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20interested%20in%20living%20and%20dining%20architecture." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+                  Inquire on WhatsApp ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 4: Café Roastery -->
+          <article class="portfolio-item" data-category="hospitality">
+            <div class="portfolio-img-wrap">
+              <img src="img/bakery.jpg" alt="Artisanal Bakery & Specialty Roastery" loading="lazy" />
+              <div class="portfolio-overlay">
+                <span class="portfolio-cat">HOSPITALITY DESTINATION</span>
+                <h3>The Roastery & Bakery</h3>
+                <p class="portfolio-meta">Brushed Brass Service Island, Fluted Booths</p>
+                <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20planning%20a%20cafe%20or%20hospitality%20venue." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+                  Inquire on WhatsApp ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 5: Verandah Lounge -->
+          <article class="portfolio-item" data-category="hospitality">
+            <div class="portfolio-img-wrap">
+              <img src="img/outdoor.jpg" alt="Sunlit Verandah & Courtyard Lounge" loading="lazy" />
+              <div class="portfolio-overlay">
+                <span class="portfolio-cat">INDOOR-OUTDOOR TRANSITION</span>
+                <h3>The Verandah Lounge</h3>
+                <p class="portfolio-meta">Natural Kota Limestone, Canopy Light Filtering</p>
+                <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20want%20to%20discuss%20an%20outdoor%20or%20verandah%20lounge." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+                  Inquire on WhatsApp ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 6: Signature Bar & Joinery -->
+          <article class="portfolio-item" data-category="joinery">
+            <div class="portfolio-img-wrap">
+              <img src="img/counter.jpg" alt="Signature Bar and Custom Fluted Millwork" loading="lazy" />
+              <div class="portfolio-overlay">
+                <span class="portfolio-cat">BESPOKE MILLWORK</span>
+                <h3>The Signature Cocktail Bar</h3>
+                <p class="portfolio-meta">Hand-Carved Fluted Walnut, Bronze Halo Illumination</p>
+                <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20looking%20for%20custom%20bar%20joinery%20and%20furniture." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+                  Inquire on WhatsApp ↗
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: THE PHILOSOPHY / MEET THE DESIGNER
+         ==================================================================== -->
+    <section class="home-section" id="philosophy">
+      <div class="container">
+        <div class="section-meta-label">
+          <span>02 / THE ARCHITECTURAL PHILOSOPHY</span>
+          <span>FOUNDER & PRINCIPAL INTERIOR DESIGNER</span>
+        </div>
+
+        <div class="philosophy-layout">
+          <!-- Left: Narrative & Manifesto -->
+          <div class="philosophy-quote-box">
+            <blockquote>
+              "Zaksy Studio is a premier interior and furniture design firm in Hyderabad founded by <em>Zakwan Syed.</em> We specialize in creating bespoke residential and commercial spaces that blend modern aesthetics with everyday functionality."
+            </blockquote>
+            <p class="philosophy-lead">
+              Operating at the intersection of architectural discipline and tactile craftsmanship, our practice rejects superficial ornamental trends in favor of honest raw materials — honed Roman travertine, oiled teak joinery, and patinated metals that mature gracefully under Hyderabad's Deccan light.
+            </p>
+            <p class="philosophy-lead">
+              Every master bedroom sanctuary, travertine wellness bath, and hospitality environment is engineered from inside out — prioritizing acoustic isolation, effortless spatial flow, and 2700K warm indirect illumination that calms your nervous system the moment you step through the threshold.
+            </p>
+            <div style="margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;">
+              <a href="about.html" class="btn-primary">
+                Read Studio Story ↗
+              </a>
+              <a href="https://wa.me/919100786726?text=Hello%20Zakwan%2C%20I%20would%20like%20to%20discuss%20an%20interior%20design%20project%20in%20Hyderabad." target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                Consult with Zakwan Syed ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Designer & Studio Credentials Card -->
+          <aside class="designer-card">
+            <span class="designer-badge">FOUNDER & PRINCIPAL DESIGNER</span>
+            <h3>Zakwan Syed</h3>
+            <p class="designer-role">Hyderabad • Premier Interior Architecture & Furniture Design</p>
+            <p style="font-size: 14.5px; color: var(--ivory-muted); line-height: 1.7;">
+              Leading an atelier of dedicated carpenters, stone artisans, and spatial planners, Zakwan Syed directs every residential and commercial project with surgical attention to micro-tolerances, material honesty, and turnkey execution.
+            </p>
+
+            <div class="designer-stats-grid">
+              <div class="stat-item">
+                <div class="stat-num">5.0 ★</div>
+                <div class="stat-lbl">36 Google Reviews</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">85+</div>
+                <div class="stat-lbl">Sanctuaries Built</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">100%</div>
+                <div class="stat-lbl">Turnkey Execution</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">HYD</div>
+                <div class="stat-lbl">Hyderabad Base</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 4: SERVICES & SPECIALISATIONS
+         ==================================================================== -->
+    <section class="home-section" id="services">
+      <div class="container">
+        <div class="section-meta-label">
+          <span>03 / STUDIO CAPABILITIES</span>
+          <span>DISCIPLINES FOR DISCERNING CLIENTS</span>
+        </div>
+
+        <div style="max-width: 700px; margin-bottom: 50px;">
+          <h2 class="section-title">Services & <em>Specialisations.</em></h2>
+          <p style="font-size: 16px; color: var(--ivory-muted); line-height: 1.7;">
+            Comprehensive spatial disciplines with single-point accountability. From structural civil reconfigurations to custom heirloom furniture.
+          </p>
+        </div>
+
+        <div class="services-card-grid">
+          <!-- Service 1: Turnkey Residential -->
+          <div class="service-box-lux">
+            <div>
+              <span class="service-num">01 / ARCHITECTURE</span>
+              <h3>Turnkey Residential Architecture</h3>
+              <p>
+                Complete villa and penthouse interior transformations. We oversee structural civil modifications, electrical/HVAC integration, plumbing re-routes, and complete site execution.
+              </p>
+              <ul class="service-checklist">
+                <li>Civil, Structural & Space-Zoning Overhauls</li>
+                <li>Reflected Ceiling Plans (RCP) & 3D Lighting Simulations</li>
+                <li>Daily On-Site Engineering Supervision in Hyderabad</li>
+              </ul>
+            </div>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20interested%20in%20Turnkey%20Residential%20Architecture." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+              Inquire on WhatsApp ↗
+            </a>
+          </div>
+
+          <!-- Service 2: Bedroom & Bathroom Sanctuaries -->
+          <div class="service-box-lux">
+            <div>
+              <span class="service-num">02 / PRIVATE SANCTUARIES</span>
+              <h3>Master Bedrooms & Spa Bathrooms</h3>
+              <p>
+                Restorative private suites engineered with acoustic dampening, custom flush wall wardrobes, Roman travertine monolithic basins, and zero-glare warm cove illumination.
+              </p>
+              <ul class="service-checklist">
+                <li>Acoustic Decibel Isolation & Ambient Temperature Mapping</li>
+                <li>Monolithic Vein-Matched Natural Stone Fabrication</li>
+                <li>Concealed Hardware, Fluted Timber & Linen Joinery</li>
+              </ul>
+            </div>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20want%20to%20discuss%20Master%20Bedroom%20and%20Bathroom%20Sanctuaries." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+              Inquire on WhatsApp ↗
+            </a>
+          </div>
+
+          <!-- Service 3: Hospitality & Commercial -->
+          <div class="service-box-lux">
+            <div>
+              <span class="service-num">03 / COMMERCIAL SPACES</span>
+              <h3>Hospitality, Café & Dining Venues</h3>
+              <p>
+                High-dwell public environments designed to elevate customer retention, streamline operational workflows, and establish indelible brand presence.
+              </p>
+              <ul class="service-checklist">
+                <li>Spatial Flow, Circulation & Customer Dwell Engineering</li>
+                <li>Specialist Bar Ergonomics & Commercial Kitchen Integration</li>
+                <li>Acoustic Ceiling Treatments for Intimate Conversations</li>
+              </ul>
+            </div>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20need%20design%20consultancy%20for%20a%20hospitality%20venue." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+              Inquire on WhatsApp ↗
+            </a>
+          </div>
+
+          <!-- Service 4: Bespoke Products & Joinery -->
+          <div class="service-box-lux">
+            <div>
+              <span class="service-num">04 / ATELIER CRAFT</span>
+              <h3>Bespoke Furniture & Joinery</h3>
+              <p>
+                Individually tailored heirloom furniture pieces designed in-studio and handcrafted by master carpenters using teak, American walnut, travertine, and brushed brass.
+              </p>
+              <ul class="service-checklist">
+                <li>Solid Mortise-and-Tenon Traditional Woodworking</li>
+                <li>Custom Fluted Consoles, Dining Tables & Floating Vanities</li>
+                <li>Hand-Rubbed Organic Oils & Architectural Patinas</li>
+              </ul>
+            </div>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20inquire%20about%20custom%20furniture%20and%20joinery." target="_blank" rel="noopener noreferrer" class="portfolio-wa-link">
+              Inquire on WhatsApp ↗
+            </a>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+          <a href="services.html" class="btn-primary">
+            View Complete Services & Product Catalog ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 5: THE DESIGN PROCESS (HOW IT WORKS)
+         ==================================================================== -->
+    <section class="home-section" id="process">
+      <div class="container">
+        <div class="section-meta-label">
+          <span>04 / METHODOLOGY</span>
+          <span>THE 4-STAGE ARCHITECTURAL JOURNEY</span>
+        </div>
+
+        <div style="max-width: 680px; margin-bottom: 40px;">
+          <h2 class="section-title">How It Works: <em>Precision Process.</em></h2>
+          <p style="font-size: 16px; color: var(--ivory-muted); line-height: 1.7;">
+            A transparent architectural roadmap designed to eliminate uncertainty and deliver uncompromised quality on schedule.
+          </p>
+        </div>
+
+        <div class="process-steps-track">
+          <!-- Step 1 -->
+          <div class="process-step-box">
+            <div>
+              <span class="step-phase-pill">PHASE 01 • WEEKS 1–2</span>
+              <h3>Spatial Diagnosis & Vision</h3>
+              <p>
+                We begin by listening. Understanding your daily habits, morning routines, sun paths, acoustic challenges, and functional zoning priorities.
+              </p>
+            </div>
+            <div class="step-deliverable">
+              <strong>DELIVERABLE:</strong> Spatial Zoning Schematics & Material Mood Direction
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="process-step-box">
+            <div>
+              <span class="step-phase-pill">PHASE 02 • WEEKS 3–5</span>
+              <h3>Materiality & CAD Schematics</h3>
+              <p>
+                Detailed technical drawings: reflected ceiling plans, lighting Kelvin schedules, plumbing drops, 3D photorealistic views, and stone vein selections.
+              </p>
+            </div>
+            <div class="step-deliverable">
+              <strong>DELIVERABLE:</strong> Complete Architectural Execution Drawings & BOQ
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="process-step-box">
+            <div>
+              <span class="step-phase-pill">PHASE 03 • WEEKS 6–10</span>
+              <h3>Artisan Joinery & Procurement</h3>
+              <p>
+                Handcrafting custom millwork in our atelier, selecting stone blocks directly from quarry yards in Hyderabad, and testing brass metalwork patinas.
+              </p>
+            </div>
+            <div class="step-deliverable">
+              <strong>DELIVERABLE:</strong> Physical Material Sample Sign-Off & Joinery Mockups
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="process-step-box">
+            <div>
+              <span class="step-phase-pill">PHASE 04 • WEEKS 11–16</span>
+              <h3>Turnkey Execution & Handover</h3>
+              <p>
+                Dedicated site engineers ensure zero tolerance deviation. Final hardware calibration, architectural deep clean, art curation, and white-glove key handover.
+              </p>
+            </div>
+            <div class="step-deliverable">
+              <strong>DELIVERABLE:</strong> Completed Sanctuary Ready for Pure Living
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 6: CLIENT TESTIMONIALS & GOOGLE REVIEWS
+         ==================================================================== -->
+    <section class="home-section" id="testimonials">
+      <div class="container">
+        <div class="section-meta-label">
+          <span>05 / REPUTATION & RECOGNITION</span>
+          <span>5.0 GOOGLE RATING • 36 REVIEWS</span>
+        </div>
+
+        <!-- Google Reviews Verified Badge -->
+        <div style="margin-bottom: 24px;">
+          <a href="https://www.google.com/search?q=zaksy+studio" target="_blank" rel="noopener noreferrer" class="google-rating-badge" title="View 36 Google reviews for Zaksy Studio">
+            <svg class="google-g" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.41 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.59 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+            <span><strong>5.0</strong> <span class="stars">★★★★★</span> 36 Google Reviews • Hyderabad</span>
+          </a>
+        </div>
+
+        <div style="max-width: 680px; margin-bottom: 50px;">
+          <h2 class="section-title">Trusted by Discerning <em>Homeowners.</em></h2>
+          <p style="font-size: 16px; color: var(--ivory-muted); line-height: 1.7;">
+            Rated 5.0 stars across 36 Google reviews by families, entrepreneurs, and visionary founders across Hyderabad who entrusted their most sacred spaces to our hands.
+          </p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card-lux">
+            <div class="testimonial-rating">★★★★★</div>
+            <p>
+              "Zaksy Studio transformed our Jubilee Hills villa into a quiet sanctuary. The master bedroom suite has completely shifted our quality of rest. The concealed lighting and fluted joinery are beyond anything we saw from conventional interior firms."
+            </p>
+            <div class="testimonial-author-meta">
+              <strong>Vikramaditya & Radhika Reddy</strong>
+              <span>Villa Sanctuary • Jubilee Hills, Hyderabad</span>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card-lux">
+            <div class="testimonial-rating">★★★★★</div>
+            <p>
+              "Their mastery over natural travertine and raw stone in our bathroom was extraordinary. They personally visited the stone yards to select vein matches. Delivered strictly on schedule with zero compromises."
+            </p>
+            <div class="testimonial-author-meta">
+              <strong>Dr. Ananya Varma</strong>
+              <span>Spa Bathroom & Penthouse • Banjara Hills, Hyderabad</span>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card-lux">
+            <div class="testimonial-rating">★★★★★</div>
+            <p>
+              "The design of our café bar in Hitec City drove our customer dwell time up by 45%. People walk in and immediately feel the acoustic warmth and intentional lighting. Working with Zaksy was effortless."
+            </p>
+            <div class="testimonial-author-meta">
+              <strong>Karan Singhania</strong>
+              <span>Founder, The Roastery Collective • Hitec City</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 7: THE STYLE BLOG & EDITORIAL JOURNAL
+         Curated architectural essays, material guides, and spatial studies
+         ==================================================================== -->
+    <section class="home-section" id="style-blog">
+      <div class="container">
+        <div class="section-meta-label">
+          <span>06 / THE STYLE BLOG & EDITORIAL JOURNAL</span>
+          <span>HYDERABAD DESIGN PERSPECTIVES</span>
+        </div>
+
+        <div class="insta-header-strip">
+          <div style="max-width: 680px;">
+            <h2 class="section-title">The Style Blog: <em>Essays & Guides.</em></h2>
+            <p style="font-size: 16px; color: var(--ivory-muted); line-height: 1.7;">
+              Material philosophies, bedroom acoustic design, travertine stone care, and spatial strategies from our Hyderabad studio.
+            </p>
+          </div>
+
+          <!-- Direct Blog Link Button -->
+          <a href="blog.html" class="btn-primary" style="font-size: 11px; padding: 12px 24px;">
+            Explore All 6 Essays & Toolkits ↗
+          </a>
+        </div>
+
+        <!-- Studio Material & Workshop Visual Strip -->
+        <div class="insta-grid-6 editorial-photo-strip">
+          <div class="insta-tile editorial-photo-tile">
+            <img src="img/detail.jpg" alt="Joinery craftsmanship and acoustic linen wall in studio workshop" loading="lazy" />
+            <div class="insta-tile-overlay editorial-photo-overlay">
+              <span class="insta-tile-tag editorial-photo-tag">Tactile Joinery</span>
+            </div>
+          </div>
+
+          <div class="insta-tile editorial-photo-tile">
+            <img src="img/metal.jpg" alt="Travertine slab testing and water erosion resistance" loading="lazy" />
+            <div class="insta-tile-overlay editorial-photo-overlay">
+              <span class="insta-tile-tag editorial-photo-tag">Roman Travertine</span>
+            </div>
+          </div>
+
+          <div class="insta-tile editorial-photo-tile">
+            <img src="img/cafe.jpg" alt="Natural light casting through teak joinery in residential interior" loading="lazy" />
+            <div class="insta-tile-overlay editorial-photo-overlay">
+              <span class="insta-tile-tag editorial-photo-tag">Circadian Light</span>
+            </div>
+          </div>
+
+          <div class="insta-tile editorial-photo-tile">
+            <img src="img/counter.jpg" alt="Artisan hand-sanding fluted walnut cocktail counter" loading="lazy" />
+            <div class="insta-tile-overlay editorial-photo-overlay">
+              <span class="insta-tile-tag editorial-photo-tag">Atelier Millwork</span>
+            </div>
+          </div>
+
+          <div class="insta-tile editorial-photo-tile">
+            <img src="img/restaurant.jpg" alt="Kota limestone and double-height volume dining room" loading="lazy" />
+            <div class="insta-tile-overlay editorial-photo-overlay">
+              <span class="insta-tile-tag editorial-photo-tag">Spatial Volumes</span>
+            </div>
+          </div>
+
+          <div class="insta-tile editorial-photo-tile">
+            <img src="img/bakery.jpg" alt="Evening lighting check with 2700K warm cove fixtures" loading="lazy" />
+            <div class="insta-tile-overlay editorial-photo-overlay">
+              <span class="insta-tile-tag editorial-photo-tag">Layered Light</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Style Blog Editorial Cards -->
+        <div class="section-meta-label" style="margin-top: 40px;">
+          <span>FEATURED ESSAYS FROM THE STYLE BLOG</span>
+          <span><a href="blog.html" style="color: var(--olive);">VIEW ALL ARTICLES →</a></span>
+        </div>
+
+        <div class="blog-cards-grid">
+          <article class="portfolio-item">
+            <div class="portfolio-img-wrap" style="height: 240px;">
+              <img src="img/detail.jpg" alt="Bedroom Sanctuary Psychology" loading="lazy" />
+            </div>
+            <div style="padding: 24px; background: var(--bg-surface);">
+              <span class="portfolio-cat">ESSAY 01 • 6 MIN READ</span>
+              <h3 style="font-size: 20px; margin-bottom: 10px;">The Psychology of Bedroom Sanctuaries</h3>
+              <p style="font-size: 13.5px; color: var(--ivory-muted); line-height: 1.6; margin-bottom: 16px;">
+                Why indirect morning illumination, acoustic dampening, and concealed joinery alter your deep rest cycle.
+              </p>
+              <a href="blog.html" class="portfolio-wa-link">Read Full Essay ↗</a>
+            </div>
+          </article>
+
+          <article class="portfolio-item">
+            <div class="portfolio-img-wrap" style="height: 240px;">
+              <img src="img/metal.jpg" alt="Travertine in Modern Bathrooms" loading="lazy" />
+            </div>
+            <div style="padding: 24px; background: var(--bg-surface);">
+              <span class="portfolio-cat">ESSAY 02 • 5 MIN READ</span>
+              <h3 style="font-size: 20px; margin-bottom: 10px;">Travertine & Raw Stone in Bathroom Design</h3>
+              <p style="font-size: 13.5px; color: var(--ivory-muted); line-height: 1.6; margin-bottom: 16px;">
+                Selecting Roman travertine, concealed floor drainage, and monolithic vanities for eternal spa serenity.
+              </p>
+              <a href="blog.html" class="portfolio-wa-link">Read Full Essay ↗</a>
+            </div>
+          </article>
+
+          <article class="portfolio-item">
+            <div class="portfolio-img-wrap" style="height: 240px;">
+              <img src="img/restaurant-wide.jpg" alt="Spatial Flow in Residential Design" loading="lazy" />
+            </div>
+            <div style="padding: 24px; background: var(--bg-surface);">
+              <span class="portfolio-cat">ESSAY 03 • 4 MIN READ</span>
+              <h3 style="font-size: 20px; margin-bottom: 10px;">Spatial Flow: Why Circulation Precedes Decor</h3>
+              <p style="font-size: 13.5px; color: var(--ivory-muted); line-height: 1.6; margin-bottom: 16px;">
+                The mathematical clearance rules that make a 4,000 sq.ft home feel expansive and effortlessly comfortable.
+              </p>
+              <a href="blog.html" class="portfolio-wa-link">Read Full Essay ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 8: THE CONSULTATIVE CLOSING CTA CARD
+         Direct WhatsApp conversation, studio details, and consultation booking
+         ==================================================================== -->
+    <section class="home-section" id="contact" style="border-bottom: none;">
+      <div class="container">
+        <div class="section-meta-label">
+          <span>07 / START A CONVERSATION</span>
+          <span>HYDERABAD DESIGN CONSULTATIONS</span>
+        </div>
+
+        <div class="consultative-closing-card">
+          <!-- Left Column: Vision & Direct Action -->
+          <div class="closing-text-col">
+            <h2>
+              Have a space worth reimagining?<br>
+              <em>Let’s create together.</em>
+            </h2>
+            <p>
+              Whether you are planning a complete villa renovation, a master bedroom sanctuary, or an artisanal commercial space, we begin by listening. Connect directly with our principal interior architect on WhatsApp.
+            </p>
+            <div class="closing-action-group">
+              <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20book%20an%20interior%20architecture%20consultation." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large">
+                <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+                Chat on WhatsApp (+91 91007 86726)
+              </a>
+              <a href="tel:+919100786726" class="btn-secondary">
+                Direct Call: +91 91007 86726
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Quick WhatsApp Consultation Form -->
+          <div class="closing-info-box">
+            <h4 style="font-family: var(--font-heading); font-size: 22px; margin-bottom: 18px; color: var(--ivory);">
+              Quick Consultation Request
+            </h4>
+            <form id="quickConsultForm">
+              <div style="margin-bottom: 14px;">
+                <input type="text" id="qName" class="form-control" placeholder="Your Name" required />
+              </div>
+              <div style="margin-bottom: 14px;">
+                <input type="tel" id="qPhone" class="form-control" placeholder="Phone Number" required />
+              </div>
+              <div style="margin-bottom: 14px;">
+                <select id="qType" class="form-control form-select">
+                  <option value="Master Bedroom Suite">Master Bedroom Suite</option>
+                  <option value="Spa Bathroom Sanctuary">Spa Bathroom Sanctuary</option>
+                  <option value="Full Villa Interior Architecture">Full Villa Interior Architecture</option>
+                  <option value="Commercial / Café Space">Commercial / Café Space</option>
+                  <option value="Bespoke Furniture & Joinery">Bespoke Furniture & Joinery</option>
+                </select>
+              </div>
+              <div style="margin-bottom: 18px;">
+                <input type="text" id="qLoc" class="form-control" placeholder="Location in Hyderabad (e.g. Jubilee Hills)" />
+              </div>
+              <button type="submit" class="btn-whatsapp-large" style="width: 100%; border: none; cursor: pointer; padding: 13px 20px; font-size: 12px;">
+                Send to WhatsApp (+91 91007 86726) →
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         ARCHITECTURAL STUDIO FOOTER
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-main-grid">
+          <div class="footer-col">
+            <a href="index.html" class="brand-wordmark" style="margin-bottom: 18px;">
+              zaksy<span>STUDIO</span><sup>®</sup>
+            </a>
+            <p style="font-size: 14px; color: var(--ivory-muted); max-width: 320px; line-height: 1.6; margin-bottom: 22px;">
+              Independent interior architecture and spatial design studio based in Hyderabad, India.
+            </p>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" class="whatsapp-nav-btn">
+              Chat on WhatsApp ↗
+            </a>
+          </div>
+
+          <div class="footer-col">
+            <h4>EXPLORE</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#portfolio">Visual Portfolio</a></li>
+              <li><a href="about.html">About the Studio</a></li>
+              <li><a href="services.html">Services & Products</a></li>
+              <li><a href="blog.html">Blog & Resources</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>SPACES</h4>
+            <ul class="footer-links">
+              <li><a href="services.html#residential">Master Bedroom Suites</a></li>
+              <li><a href="services.html#residential">Travertine Bathrooms</a></li>
+              <li><a href="services.html#commercial">Café & Hospitality</a></li>
+              <li><a href="services.html#products">Bespoke Joinery</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>HYDERABAD STUDIO</h4>
+            <div class="footer-contact-item">
+              <strong>Phone / WhatsApp:</strong>
+              <a href="tel:+919100786726">+91 91007 86726</a> / 091007 86726
+            </div>
+            <div class="footer-contact-item">
+              <strong>Hours:</strong>
+              Open Daily • Closes 10:00 PM IST
+            </div>
+            <div class="footer-contact-item">
+              <strong>Email:</strong>
+              <a href="mailto:hello@zaksystudio.com">hello@zaksystudio.com</a>
+            </div>
+            <div class="footer-contact-item">
+              <strong>Areas Served:</strong>
+              Hyderabad (Jubilee Hills, Banjara Hills, Hitec City)
+            </div>
+            <div class="footer-contact-item">
+              <strong>Location:</strong>
+              Road No. 12, Banjara Hills, Hyderabad, India
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-sub-bar">
+          <span>© 2026 ZAKSY STUDIO ® — ALL RIGHTS RESERVED</span>
+          <div class="footer-legal-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="privacy.html#terms">Terms of Service</a>
+            <a href="privacy.html#cookies">Cookie Preferences</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ====================================================================
+       HIGH-PERFORMANCE OFF-THREAD GPU IMAGEBITMAP ENGINE & SCROLL LOGIC
+       ==================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      const TOTAL_FRAMES = 300;
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      const isMobile = window.innerWidth < 768 || isTouch;
+      const isLowMemory = (navigator.deviceMemory && navigator.deviceMemory <= 3) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+
+      // HIGH-RESPONSIVENESS LERP:
+      // Touch: 0.45 (near-instant thumb tracking, zero rubber-banding lag)
+      // Desktop: 0.28 (glides between mouse wheel ticks smoothly in ~80ms instead of 500ms)
+      const LERP_FACTOR = isTouch ? 0.45 : 0.28;
+      const CONCURRENCY = isMobile ? 3 : 5;
+
+      const canvas = document.getElementById('frameCanvas');
+      const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
+
+      const heroTrack = document.getElementById('heroTrack');
+      const bottomDock = document.getElementById('bottomDock');
+      const primaryCta = document.getElementById('primaryCta');
+      const dockStageLabel = document.getElementById('dockStageLabel');
+      const dockProgressFill = document.getElementById('dockProgressFill');
+
+      const bitmaps = new Array(TOTAL_FRAMES + 1);
+      let targetFrame = 1;
+      let currentFrame = 1;
+      let lastRenderedFrame = -1;
+      let isRafRunning = false;
+
+      // Cache layout metrics to eliminate forced reflow / layout thrashing
+      let cachedHeroHeight = 1;
+      let isScrolling = false;
+      let scrollTimer = null;
+
+      function getFrameUrl(index) {
+        return 'frames/ezgif-frame-' + String(index).padStart(3, '0') + '.jpg';
+      }
+
+      function updateLayoutMetrics() {
+        cachedHeroHeight = Math.max(1, heroTrack.offsetHeight - window.innerHeight);
+      }
+
+      function computeTargetDimensions() {
+        if (!isMobile) {
+          return { targetW: 0, targetH: 0 }; // 0 means native 1080p direct GPU decode on desktop
+        }
+        const aspect = 16 / 9;
+        const targetH = isLowMemory ? 540 : 720;
+        const targetW = Math.round(targetH * aspect); // 1280x720 or 960x540
+        return { targetW, targetH };
+      }
+
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+        canvas.width = Math.round(window.innerWidth * dpr);
+        canvas.height = Math.round(window.innerHeight * dpr);
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'low'; // Low uses ultra-fast bilinear texture sampling
+
+        updateLayoutMetrics();
+
+        if (lastRenderedFrame > 0 && bitmaps[lastRenderedFrame]) {
+          drawBitmap(bitmaps[lastRenderedFrame]);
+        }
+      }
+
+      let lastW = window.innerWidth;
+      let lastH = window.innerHeight;
+      function handleResize() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        if (w !== lastW || Math.abs(h - lastH) > 120) {
+          lastW = w;
+          lastH = h;
+          resizeCanvas();
+        }
+      }
+
+      // Fast, integer-aligned GPU texture blit
+      function drawBitmap(bitmap) {
+        if (!bitmap) return;
+
+        const cw = canvas.width;
+        const ch = canvas.height;
+        const bw = bitmap.width;
+        const bh = bitmap.height;
+
+        const scale = Math.max(cw / bw, ch / bh);
+        const sw = Math.round(cw / scale);
+        const sh = Math.round(ch / scale);
+        const sx = Math.round((bw - sw) * 0.5);
+        const sy = Math.round((bh - sh) * 0.5);
+
+        ctx.drawImage(bitmap, sx, sy, sw, sh, 0, 0, cw, ch);
+      }
+
+      function getNearestDecodedFrame(targetIdx) {
+        if (bitmaps[targetIdx]) return targetIdx;
+
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          const prev = targetIdx - offset;
+          if (prev >= 1 && bitmaps[prev]) return prev;
+          const next = targetIdx + offset;
+          if (next <= TOTAL_FRAMES && bitmaps[next]) return next;
+        }
+        return 1;
+      }
+
+      // Guarded DOM updates to prevent style re-calculations on every frame
+      let lastDockStage = -1;
+      let lastProgressPct = -1;
+      let lastHeroActive = null;
+
+      function updateBottomDock(progress, isHeroActive) {
+        if (isHeroActive !== lastHeroActive) {
+          lastHeroActive = isHeroActive;
+          if (!isHeroActive) {
+            bottomDock.classList.add('dock-hidden');
+            return;
+          } else {
+            bottomDock.classList.remove('dock-hidden');
+          }
+        }
+
+        if (!isHeroActive) return;
+
+        const pct = Math.min(100, Math.max(0, Math.round(progress * 100)));
+        if (pct !== lastProgressPct && dockProgressFill) {
+          lastProgressPct = pct;
+          dockProgressFill.style.width = pct + '%';
+        }
+
+        let stage = 0;
+        if (progress < 0.35) stage = 1;
+        else if (progress >= 0.38 && progress < 0.75) stage = 2;
+        else if (progress >= 0.78) stage = 3;
+
+        if (stage !== 0 && stage !== lastDockStage) {
+          lastDockStage = stage;
+          if (stage === 1) {
+            if (dockStageLabel) dockStageLabel.textContent = '01 / SPATIAL INCEPTION';
+            primaryCta.innerHTML = 'Start a Project <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>';
+            primaryCta.href = 'https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20an%20interior%20design%20project.';
+          } else if (stage === 2) {
+            if (dockStageLabel) dockStageLabel.textContent = '02 / TACTILE MATERIALITY';
+            primaryCta.innerHTML = 'Chat on WhatsApp <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>';
+            primaryCta.href = 'https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20exploring%20materials%20and%20design%20services.';
+          } else if (stage === 3) {
+            if (dockStageLabel) dockStageLabel.textContent = '03 / BESPOKE LIVING REVEALED';
+            primaryCta.innerHTML = 'Let’s Create Together <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>';
+            primaryCta.href = 'https://wa.me/919100786726?text=Hello%20Zaksy%20Studio%2C%20let%27s%20create%20together.%20I%20have%20a%20space%20to%20reimagine.';
+          }
+        }
+      }
+
+      function renderLoop() {
+        const delta = targetFrame - currentFrame;
+
+        // Snappy threshold: when within 0.04 frames, snap to eliminate trailing lag
+        if (Math.abs(delta) < 0.04) {
+          currentFrame = targetFrame;
+          isRafRunning = false;
+        } else {
+          currentFrame += delta * LERP_FACTOR;
+          isRafRunning = true;
+        }
+
+        const targetIdx = Math.min(TOTAL_FRAMES, Math.max(1, Math.round(currentFrame)));
+        const frameToDraw = getNearestDecodedFrame(targetIdx);
+
+        if (frameToDraw && frameToDraw !== lastRenderedFrame && bitmaps[frameToDraw]) {
+          drawBitmap(bitmaps[frameToDraw]);
+          lastRenderedFrame = frameToDraw;
+        }
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const progress = Math.min(1, Math.max(0, scrollTop / cachedHeroHeight));
+        const isHeroActive = scrollTop < cachedHeroHeight + 50;
+
+        updateBottomDock(progress, isHeroActive);
+
+        if (isRafRunning) {
+          requestAnimationFrame(renderLoop);
+        }
+      }
+
+      // ZERO-LATENCY SCROLL HANDLER:
+      // Computes targetFrame immediately on scroll event and schedules render on the very next v-blank!
+      function handleScroll() {
+        isScrolling = true;
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => { isScrolling = false; }, 120);
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const progress = Math.min(1, Math.max(0, scrollTop / cachedHeroHeight));
+        targetFrame = 1 + progress * (TOTAL_FRAMES - 1);
+
+        if (!isRafRunning) {
+          isRafRunning = true;
+          requestAnimationFrame(renderLoop);
+        }
+      }
+
+      async function decodeFrame(index, targetW, targetH) {
+        if (bitmaps[index]) return;
+        try {
+          const res = await fetch(getFrameUrl(index));
+          const blob = await res.blob();
+          
+          let bitmap;
+          if ('createImageBitmap' in window) {
+            try {
+              if (targetW > 0 && targetH > 0) {
+                bitmap = await createImageBitmap(blob, {
+                  resizeWidth: targetW,
+                  resizeHeight: targetH,
+                  resizeQuality: 'low'
+                });
+              } else {
+                bitmap = await createImageBitmap(blob);
+              }
+            } catch (_) {
+              bitmap = await createImageBitmap(blob);
+            }
+          } else {
+            const img = new Image();
+            img.src = URL.createObjectURL(blob);
+            await img.decode();
+            bitmap = img;
+          }
+
+          bitmaps[index] = bitmap;
+
+          if (index === 1 && lastRenderedFrame === -1) {
+            drawBitmap(bitmap);
+            lastRenderedFrame = 1;
+            updateBottomDock(0, true);
+          }
+        } catch (_) {
+          try {
+            const img = new Image();
+            img.src = getFrameUrl(index);
+            bitmaps[index] = img;
+          } catch (__) {}
+        }
+      }
+
+      async function preloadAllFrames() {
+        const { targetW, targetH } = computeTargetDimensions();
+
+        // PHASE 1: Immediate First Frame (0ms instant paint)
+        await decodeFrame(1, targetW, targetH);
+
+        // PHASE 2: Fast Keyframe Sweep (Every 10th frame: 10, 20, 30... 300)
+        const keyframes = [];
+        for (let i = 10; i <= TOTAL_FRAMES; i += 10) {
+          keyframes.push(i);
+        }
+
+        let kfIdx = 0;
+        const kfConcurrency = isMobile ? 3 : 5;
+        async function kfWorker() {
+          while (kfIdx < keyframes.length) {
+            // If user is actively scrolling, yield 25ms to let render thread run at full 120Hz/60Hz
+            if (isScrolling) {
+              await new Promise(r => setTimeout(r, 25));
+            }
+            const idx = keyframes[kfIdx++];
+            await decodeFrame(idx, targetW, targetH);
+            if (Math.abs(targetFrame - idx) <= 10) {
+              if (!isRafRunning) {
+                isRafRunning = true;
+                requestAnimationFrame(renderLoop);
+              }
+            }
+          }
+        }
+        const kfWorkers = [];
+        for (let w = 0; w < kfConcurrency; w++) {
+          kfWorkers.push(kfWorker());
+        }
+        await Promise.all(kfWorkers);
+
+        // PHASE 3: Intermediate Keyframes (Every 5th frame: 5, 15, 25... 295)
+        const midframes = [];
+        for (let i = 5; i <= TOTAL_FRAMES; i += 10) {
+          if (!bitmaps[i]) midframes.push(i);
+        }
+        let midIdx = 0;
+        async function midWorker() {
+          while (midIdx < midframes.length) {
+            if (isScrolling) {
+              await new Promise(r => setTimeout(r, 25));
+            }
+            const idx = midframes[midIdx++];
+            await decodeFrame(idx, targetW, targetH);
+            if (Math.abs(targetFrame - idx) <= 5) {
+              if (!isRafRunning) {
+                isRafRunning = true;
+                requestAnimationFrame(renderLoop);
+              }
+            }
+          }
+        }
+        const midWorkers = [];
+        for (let w = 0; w < (isMobile ? 2 : 4); w++) {
+          midWorkers.push(midWorker());
+        }
+        await Promise.all(midWorkers);
+
+        // PHASE 4: Dense Frame Fill
+        const step = isLowMemory ? 2 : 1;
+        const remaining = [];
+        for (let i = 2; i <= TOTAL_FRAMES; i += step) {
+          if (!bitmaps[i]) remaining.push(i);
+        }
+
+        let remIdx = 0;
+        const denseConcurrency = isMobile ? 2 : CONCURRENCY;
+        async function denseWorker() {
+          while (remIdx < remaining.length) {
+            if (isScrolling) {
+              await new Promise(r => setTimeout(r, 30));
+            }
+
+            // Dynamic Priority: Swap frames closer to current active scroll position forward
+            if (remaining.length - remIdx > 8) {
+              const cur = Math.round(targetFrame);
+              let best = remIdx;
+              let bestDist = Math.abs(remaining[remIdx] - cur);
+              const lookAhead = Math.min(remIdx + 16, remaining.length);
+              for (let s = remIdx + 1; s < lookAhead; s++) {
+                const d = Math.abs(remaining[s] - cur);
+                if (d < bestDist) {
+                  bestDist = d;
+                  best = s;
+                }
+              }
+              if (best !== remIdx) {
+                const temp = remaining[remIdx];
+                remaining[remIdx] = remaining[best];
+                remaining[best] = temp;
+              }
+            }
+
+            const idx = remaining[remIdx++];
+            await decodeFrame(idx, targetW, targetH);
+            if (Math.abs(targetFrame - idx) <= 2) {
+              if (!isRafRunning) {
+                isRafRunning = true;
+                requestAnimationFrame(renderLoop);
+              }
+            }
+          }
+        }
+
+        const denseWorkers = [];
+        for (let w = 0; w < denseConcurrency; w++) {
+          denseWorkers.push(denseWorker());
+        }
+        await Promise.all(denseWorkers);
+      }
+
+      // Portfolio Filter Interactivity
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.getAttribute('data-filter');
+
+          portfolioItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Quick Consultation Form -> Direct WhatsApp
+      const quickForm = document.getElementById('quickConsultForm');
+      if (quickForm) {
+        quickForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const name = document.getElementById('qName').value.trim();
+          const phone = document.getElementById('qPhone').value.trim();
+          const type = document.getElementById('qType').value;
+          const loc = document.getElementById('qLoc').value.trim();
+
+          const text = `Hi Zaksy Studio!%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Project Type:* ${encodeURIComponent(type)}%0A*Location:* ${encodeURIComponent(loc)}%0A%0AI would like to schedule an interior architecture consultation.`;
+          window.open(`https://wa.me/919100786726?text=${text}`, '_blank');
+        });
+      }
+
+      // Mobile Navigation Menu Toggle with Auto-Close on Tap
+      const mobileToggle = document.getElementById('mobileToggle');
+      const mainNav = document.getElementById('mainNav');
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          mainNav.classList.toggle('open');
+        });
+      }
+
+      if (mainNav) {
+        mainNav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+          });
+        });
+        document.addEventListener('click', (e) => {
+          if (!mainNav.contains(e.target) && mobileToggle && !mobileToggle.contains(e.target)) {
+            mainNav.classList.remove('open');
+          }
+        });
+      }
+
+      window.addEventListener('resize', handleResize, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      resizeCanvas();
+      preloadAllFrames();
+      scheduleRender();
+    })();
+  </script>
+</body>
+</html>

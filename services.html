@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services & Products — ZAKSY STUDIO | Turnkey Interior Architecture</title>
+  <meta name="description" content="Explore Zaksy Studio interior architecture services in Hyderabad: Turnkey execution, master bedrooms, luxury bathrooms, bespoke furniture, and commercial design." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Services Visual Cards Grid */
+    .services-section {
+      padding: 100px 0 140px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .service-card-large {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 100px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      padding: 44px;
+    }
+
+    .service-card-large.reverse {
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    .service-card-large.reverse .service-visual {
+      order: 2;
+    }
+
+    .service-visual {
+      position: relative;
+      height: 440px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #141512;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .service-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .service-card-large:hover .service-visual img {
+      transform: scale(1.04);
+    }
+
+    .service-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+
+    .service-title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 3.2vw, 44px);
+      line-height: 1.15;
+      color: var(--ivory);
+      margin-bottom: 18px;
+    }
+
+    .service-desc {
+      font-size: 15px;
+      color: var(--ivory-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .deliverables-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .deliverables-list li {
+      font-size: 14px;
+      color: var(--ivory);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .deliverables-list li svg {
+      color: var(--olive);
+      flex-shrink: 0;
+    }
+
+    /* Products & Joinery Section */
+    .products-section {
+      padding: 120px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at 20% 80%, rgba(183, 186, 145, 0.06) 0%, transparent 60%);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      margin-top: 60px;
+    }
+
+    .product-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, border-color 0.35s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245, 242, 235, 0.25);
+    }
+
+    .product-img-box {
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+      background: #141512;
+    }
+
+    .product-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-img-box img {
+      transform: scale(1.05);
+    }
+
+    .product-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-category {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 8px;
+    }
+
+    .product-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      color: var(--ivory);
+      margin-bottom: 10px;
+    }
+
+    .product-desc {
+      font-size: 13.5px;
+      color: var(--ivory-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .product-cta-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--whatsapp);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .product-cta-link:hover {
+      color: #ffffff;
+    }
+
+    /* Process Flow */
+    .process-section {
+      padding: 110px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .process-step {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 32px 26px;
+    }
+
+    .step-number {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--olive);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--ivory);
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--ivory-muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .service-card-large, .service-card-large.reverse { grid-template-columns: 1fr; padding: 24px; gap: 30px; }
+      .service-card-large.reverse .service-visual { order: 0; }
+      .service-visual { height: 280px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-wordmark" aria-label="Zaksy Studio home">
+      zaksy<span>STUDIO</span><sup>®</sup>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="services.html" class="nav-link active">Services & Products</a>
+      <a href="blog.html" class="nav-link">Blog & Resources</a>
+      <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20inquire%20about%20your%20interior%20design%20services." target="_blank" rel="noopener noreferrer" class="whatsapp-nav-btn">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+        Contact Us
+      </a>
+    </nav>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </header>
+
+  <!-- Page Banner -->
+  <section class="page-banner">
+    <div class="container">
+      <p class="banner-meta">03 / WHAT WE PROVIDE</p>
+      <h1 class="banner-title">
+        Considered spaces.<br>
+        <em>Tailored products.</em>
+      </h1>
+      <p class="banner-lead">
+        From comprehensive turnkey architectural transformations to bespoke handcrafted furniture, we bring clarity, material honesty, and meticulous craftsmanship to every commission.
+      </p>
+    </div>
+  </section>
+
+  <!-- Core Services Section -->
+  <section class="services-section">
+    <div class="container">
+      <div class="section-meta-label">
+        <span>OUR SERVICES</span>
+        <span>ARCHITECTURAL & RESIDENTIAL CAPABILITIES</span>
+      </div>
+
+      <!-- Service 1: Turnkey Architecture -->
+      <article class="service-card-large">
+        <div class="service-visual">
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1200&auto=format&fit=crop" alt="Full turnkey interior architecture villa living space" loading="lazy" />
+        </div>
+        <div>
+          <span class="service-badge">01 / COMPLETE EXECUTION</span>
+          <h2 class="service-title">Turnkey Interior Architecture</h2>
+          <p class="service-desc">
+            End-to-end spatial realization from bare shell to finished environment. We manage architectural drawings, structural MEP modifications, material procurement, custom fabrication, and on-site contractor coordination with single-point accountability.
+          </p>
+          <ul class="deliverables-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Photorealistic 3D Spatial Renders & Material Boards
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Comprehensive MEP, Electrical & Lighting Schedules
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Daily On-Site Quality Control & Milestone Delivery
+            </li>
+          </ul>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20interested%20in%20Turnkey%20Interior%20Architecture." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large">
+            <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+            Inquire on WhatsApp ↗
+          </a>
+        </div>
+      </article>
+
+      <!-- Service 2: Master Bedrooms & Bathrooms -->
+      <article class="service-card-large reverse">
+        <div class="service-visual">
+          <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1200&auto=format&fit=crop" alt="Bespoke Master Bedroom Sanctuary Design" loading="lazy" />
+        </div>
+        <div>
+          <span class="service-badge">02 / PRIVATE SANCTUARIES</span>
+          <h2 class="service-title">Bedrooms & Spa Bathrooms</h2>
+          <p class="service-desc">
+            We sculpt private rooms for deep rest, privacy, and sensory calm. From custom fluted oak headboards and acoustic fabric wall paneling to monolithic carved stone bathtubs and concealed rain showers, every detail is considered for daily wellbeing.
+          </p>
+          <ul class="deliverables-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Custom Headboard, Bed Frame & Nightstand Architecture
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Honed Travertine & Italian Marble Stone Bathrooms
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Concealed Architectural Dressing & Wardrobe Systems
+            </li>
+          </ul>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20Bedroom%20and%20Bathroom%20design." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large">
+            <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+            Inquire on WhatsApp ↗
+          </a>
+        </div>
+      </article>
+
+      <!-- Service 3: Commercial Hospitality -->
+      <article class="service-card-large">
+        <div class="service-visual">
+          <img src="img/cafe.jpg" alt="Café and boutique restaurant spatial design" loading="lazy" />
+        </div>
+        <div>
+          <span class="service-badge">03 / HOSPITALITY & BRAND</span>
+          <h2 class="service-title">Cafés, Restaurants & Retail</h2>
+          <p class="service-desc">
+            Distinctive environments built for atmosphere, dwell time, and commercial success. We align spatial flow, counter ergonomics, and acoustic comfort with the emotional narrative of your brand.
+          </p>
+          <ul class="deliverables-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Bespoke Bar & Service Counter Engineering
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              High-Traffic Circulation, Seating Densities & Acoustic Plans
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Branded Architectural Details & Distinctive Lighting
+            </li>
+          </ul>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20am%20interested%20in%20Commercial%20Interior%20Architecture." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large">
+            <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+            Inquire on WhatsApp ↗
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Products & Bespoke Joinery Collection -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="section-meta-label">
+        <span>CUSTOM PRODUCTS & FURNITURE</span>
+        <span>HANDCRAFTED IN OUR HYDERABAD WORKSHOP</span>
+      </div>
+
+      <h2 class="section-title">
+        The detail <em>is the design.</em>
+      </h2>
+      <p style="color: var(--ivory-muted); max-width: 600px; font-size: 16px;">
+        We design and build bespoke architectural joinery, credenzas, and custom furniture tailored to the millimeter for our interior commissions.
+      </p>
+
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <article class="product-card">
+          <div class="product-img-box">
+            <img src="img/counter.jpg" alt="Handcrafted fluted timber counter with blackened steel framing" loading="lazy" />
+          </div>
+          <div class="product-content">
+            <span class="product-category">JOINERY & COUNTERS</span>
+            <h3 class="product-title">Fluted Timber Service Counter</h3>
+            <p class="product-desc">Solid teak slats mounted to an engineered blackened steel framework with recessed task lighting and concealed storage.</p>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20order%20a%20Custom%20Counter." target="_blank" rel="noopener noreferrer" class="product-cta-link">
+              Order Custom Product via WhatsApp ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Product 2 -->
+        <article class="product-card">
+          <div class="product-img-box">
+            <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=800&auto=format&fit=crop" alt="Monolithic walnut dining table with rounded edge profile" loading="lazy" />
+          </div>
+          <div class="product-content">
+            <span class="product-category">BESPOKE TABLES</span>
+            <h3 class="product-title">Monolithic Walnut Dining Table</h3>
+            <p class="product-desc">Carved from sustainably harvested solid American walnut with soft bullnose edges and sculptural pillared cylindrical bases.</p>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20order%20a%20Bespoke%20Dining%20Table." target="_blank" rel="noopener noreferrer" class="product-cta-link">
+              Order Custom Product via WhatsApp ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Product 3 -->
+        <article class="product-card">
+          <div class="product-img-box">
+            <img src="img/detail.jpg" alt="Curved bentwood upholstered lounge chair" loading="lazy" />
+          </div>
+          <div class="product-content">
+            <span class="product-category">SEATING & LOUNGE</span>
+            <h3 class="product-title">Curved Bentwood Dining Chair</h3>
+            <p class="product-desc">Steam-bent natural ash frame paired with rich textured turquoise upholstery. Designed for ergonomics and conversational comfort.</p>
+            <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20inquire%20about%20Custom%20Chairs." target="_blank" rel="noopener noreferrer" class="product-cta-link">
+              Order Custom Product via WhatsApp ↗
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process-section">
+    <div class="container">
+      <div class="section-meta-label">
+        <span>OUR APPROACH</span>
+        <span>FOUR STEPS TO FINISHED SPACE</span>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <span class="step-number">01</span>
+          <h3 class="step-title">Discover</h3>
+          <p class="step-desc">We listen to your lifestyle, study site light patterns, and define project scope, budget, and responsibilities together.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">02</span>
+          <h3 class="step-title">Concept</h3>
+          <p class="step-desc">Spatial zoning, layout plans, material mood boards, and photorealistic 3D visualization to align our shared vision.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">03</span>
+          <h3 class="step-title">Develop</h3>
+          <p class="step-desc">Refining architectural drawings, technical joinery details, lighting schedules, and finishes before fabrication begins.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">04</span>
+          <h3 class="step-title">Realize</h3>
+          <p class="step-desc">On-site execution, craft coordination, defect-free delivery, and the finished atmospheric environment handed over.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Direct WhatsApp Banner -->
+  <section style="padding: 100px 0; text-align: center;">
+    <div class="container">
+      <p class="banner-meta" style="justify-content: center;">READY TO BEGIN?</p>
+      <h2 class="section-title">Book your spatial consultation today.</h2>
+      <p style="color: var(--ivory-muted); max-width: 540px; margin: 0 auto 36px auto; font-size: 16px;">
+        Share your floor plan or schedule an on-site visit in Hyderabad directly via WhatsApp.
+      </p>
+      <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20book%20a%20Spatial%20Consultation." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.16c-.24.68-1.39 1.3-1.92 1.37-.51.08-1.15.11-3.69-.94-2.88-1.19-4.73-4.14-4.88-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1-2.41.26-.29.58-.36.78-.36.19 0 .39.01.56.02.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.6.17.29.77 1.27 1.66 2.05 1.14 1.01 2.1 1.33 2.4 1.48.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.68-.14.28.1.78.84 2.15 1.07.28.05.47.08.57.23.09.15.09.87-.15 1.55z"/></svg>
+        Chat Directly on WhatsApp (+91 91007 86726)
+      </a>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main-grid">
+        <div class="footer-col">
+          <a href="index.html" class="brand-wordmark" style="margin-bottom: 18px;">
+            zaksy<span>STUDIO</span><sup>®</sup>
+          </a>
+          <p style="font-size: 14px; color: var(--ivory-muted); max-width: 320px; line-height: 1.6; margin-bottom: 22px;">
+            Independent interior architecture and spatial design studio based in Hyderabad, India.
+          </p>
+          <a href="https://wa.me/919100786726?text=Hi%20Zaksy%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" class="whatsapp-nav-btn">
+            Chat on WhatsApp ↗
+          </a>
+        </div>
+
+        <div class="footer-col">
+          <h4>EXPLORE</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About the Studio</a></li>
+            <li><a href="services.html">Services & Products</a></li>
+            <li><a href="blog.html">Blog & Resources</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>CAPABILITIES</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Turnkey Execution</a></li>
+            <li><a href="services.html">Bedroom & Bathroom Suites</a></li>
+            <li><a href="services.html">Café & Hospitality</a></li>
+            <li><a href="services.html#products">Bespoke Products & Joinery</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>HYDERABAD STUDIO</h4>
+          <div class="footer-contact-item">
+            <strong>Phone / WhatsApp:</strong>
+            <a href="tel:+919100786726">+91 91007 86726</a> / 091007 86726
+          </div>
+          <div class="footer-contact-item">
+            <strong>Hours:</strong>
+            Open Daily • Closes 10:00 PM IST
+          </div>
+          <div class="footer-contact-item">
+            <strong>Email:</strong>
+            <a href="mailto:hello@zaksystudio.com">hello@zaksystudio.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <strong>Location:</strong>
+            Road No. 12, Banjara Hills, Hyderabad, India
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-sub-bar">
+        <span>© 2026 ZAKSY STUDIO ® — ALL RIGHTS RESERVED</span>
+        <div class="footer-legal-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="privacy.html#terms">Terms of Service</a>
+          <a href="privacy.html#cookies">Cookie Preferences</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mainNav = document.getElementById('mainNav');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mainNav.classList.toggle('open');
+      });
+    }
+
+    if (mainNav) {
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mainNav.classList.remove('open');
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!mainNav.contains(e.target) && mobileToggle && !mobileToggle.contains(e.target)) {
+          mainNav.classList.remove('open');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

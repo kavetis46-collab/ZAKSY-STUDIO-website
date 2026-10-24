@@ -1,0 +1,10 @@
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.vscode/
+.idea/
+
+# Raw 4K Frames Backup (Production uses optimized Full-HD 1080p frames in /frames)
+frames_4k_backup/
