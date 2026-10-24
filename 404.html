@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>404 — Page Not Found | Zaksy Studio Hyderabad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .error-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: radial-gradient(circle at 50% 40%, rgba(197, 168, 128, 0.12) 0%, #090a08 70%);
+    }
+    .error-code {
+      font-family: var(--font-heading);
+      font-size: clamp(80px, 14vw, 160px);
+      line-height: 1;
+      color: var(--gold-champagne);
+      font-weight: 300;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+      text-shadow: 0 10px 40px var(--gold-glow);
+    }
+    .error-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      color: var(--gold-champagne);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .error-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 44px);
+      color: var(--ivory);
+      margin-bottom: 16px;
+      max-width: 600px;
+    }
+    .error-desc {
+      font-size: 15px;
+      color: var(--ivory-muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .error-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body style="background: #090a08;">
+  <div class="error-wrapper">
+    <span class="error-tag">Error 404 • Spatial Disconnect</span>
+    <h1 class="error-code">404</h1>
+    <h2 class="error-title">These Architectural Coordinates Do Not Exist</h2>
+    <p class="error-desc">
+      The page or blueprint you are searching for may have been relocated, archived, or temporarily withdrawn from our editorial index.
+    </p>
+    <div class="error-actions">
+      <a href="index.html" class="btn-primary" style="padding: 14px 28px; font-size: 11.5px;">Return to Atelier Homepage ↗</a>
+      <a href="https://wa.me/919100786726?text=Hello%20Zakwan,%20I%20am%20visiting%20the%20Zaksy%20Studio%20website%20and%20need%20assistance." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-large" style="padding: 14px 28px; font-size: 11.5px;">Direct WhatsApp Inquiry ↗</a>
+    </div>
+  </div>
+</body>
+</html>
