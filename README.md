@@ -1,7 +1,7 @@
 # ZAKSY STUDIO — Website
 
 > **Premier Interior & Furniture Design Atelier**  
-> Founded by **Zakwan Syed** • Hyderabad, Telangana  
+> Founded by **Zakwan Syed** • Saidabad, Hyderabad  
 > Rated **5.0 ★★★★★ on Google (36 Reviews)**  
 > Direct Inquiries & Consultations: **+91 91007 86726**
 
@@ -31,4 +31,4 @@ This site is configured for zero-config Netlify deployment:
 
 ---
 
-© ZAKSY STUDIO • Hyderabad, Telangana. All Rights Reserved.
+© ZAKSY STUDIO • Saidabad, Hyderabad. All Rights Reserved.
